@@ -1,3 +1,5 @@
+"use client";
+
 import { SlideDeck } from "./SlideDeck";
 import { AudioToggle } from "./ui/AudioToggle";
 

@@ -18,6 +18,8 @@ function FinalSlideComponent() {
   }, []);
 
   const handleShare = async () => {
+    if (typeof window === "undefined") return;
+    
     try {
       const url = window.location.href;
       await navigator.clipboard.writeText(url);
@@ -25,6 +27,8 @@ function FinalSlideComponent() {
       setShowToast(true);
     } catch (err) {
       // Fallback para navegadores que não suportam clipboard API
+      if (typeof document === "undefined") return;
+      
       const textArea = document.createElement("textarea");
       textArea.value = window.location.href;
       textArea.style.position = "fixed";

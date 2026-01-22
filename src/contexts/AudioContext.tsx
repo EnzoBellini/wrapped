@@ -10,35 +10,36 @@ type AudioContextType = {
 
 const AudioContext = createContext<AudioContextType | null>(null);
 
-// Sons simples usando Web Audio API (sem arquivos externos)
-function createTone(frequency: number, duration: number, type: OscillatorType = "sine"): AudioBuffer {
-  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-  const sampleRate = audioContext.sampleRate;
-  const buffer = audioContext.createBuffer(1, sampleRate * duration, sampleRate);
-  const data = buffer.getChannelData(0);
-
-  for (let i = 0; i < buffer.length; i++) {
-    const t = i / sampleRate;
-    data[i] = Math.sin(2 * Math.PI * frequency * t) * Math.exp(-t * 2);
-  }
-
-  return buffer;
-}
-
 export function AudioProvider({ children }: { children: ReactNode }) {
-  const [isMuted, setIsMuted] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("audioMuted") === "true";
-  });
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioContextRef = useRef<globalThis.AudioContext | null>(null);
 
+  // Inicializar estado do localStorage no cliente
   useEffect(() => {
     if (typeof window !== "undefined") {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      setIsMuted(localStorage.getItem("audioMuted") === "true");
     }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    try {
+      const AudioContextClass = globalThis.AudioContext || (globalThis as any).webkitAudioContext;
+      if (AudioContextClass) {
+        audioContextRef.current = new AudioContextClass() as globalThis.AudioContext;
+      }
+    } catch (err) {
+      console.debug("AudioContext not available:", err);
+    }
+
     return () => {
       if (audioContextRef.current) {
-        audioContextRef.current.close();
+        try {
+          audioContextRef.current.close();
+        } catch (err) {
+          console.debug("Error closing AudioContext:", err);
+        }
       }
     };
   }, []);

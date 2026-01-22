@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { relationshipStart } from "@/data/data";
 import { Timeline } from "@/components/Timeline";
