@@ -14,12 +14,11 @@ export function Timeline() {
   const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
   const item: Variants = {
-    hidden: { opacity: 0, y: 14, filter: "blur(6px)" },
+    hidden: { opacity: 0, y: 10 },
     show: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.5, ease: easeOut },
+      transition: { duration: 0.3, ease: easeOut },
     },
   };
 
@@ -40,9 +39,9 @@ export function Timeline() {
             <div className="mt-1 grid h-7 w-7 place-items-center rounded-full border border-white/14 bg-white/8 text-xs font-semibold text-white/80">
               {i + 1}
             </div>
-            <div className="min-w-0">
-              <div className="text-sm font-semibold text-white">{m.label}</div>
-              <div className="mt-1 text-sm text-white/70">{m.detail}</div>
+            <div className="min-w-0 flex-1">
+              <div className="break-words text-sm font-semibold text-white">{m.label}</div>
+              <div className="mt-1 break-words text-xs text-white/70 sm:text-sm">{m.detail}</div>
             </div>
           </div>
         </motion.li>

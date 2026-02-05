@@ -9,9 +9,9 @@ export const relationshipStart = {
 } as const;
 
 export const top3Moments = [
-  { id: "m1", emoji: "✨", title: "Pós Klan", blurb: "Quando eu realmente percebi que te amava mais do que eu poderia expressar." },
-  { id: "m2", emoji: "🧳", title: "Nossas Risadas e Idiotices", blurb: "Os vídeos que a gente tem salvo fazendo um monte de tonteira." },
-  { id: "m3", emoji: "🫶", title: "Primeira visita ao nosso apartamento", blurb: "O começo de um sonho." },
+  { id: "m1", emoji: "💫", title: "Pós Klan", blurb: "Quando eu realmente percebi que te amava mais do que eu poderia expressar." },
+  { id: "m2", emoji: "🤣", title: "Nossas Risadas e Idiotices", blurb: "Os vídeos que a gente tem salvo fazendo um monte de tonteira." },
+  { id: "m3", emoji: "🏠❤️", title: "Primeira visita ao nosso apartamento", blurb: "O começo de um sonho." },
 ] as const;
 
 export const stats = [
@@ -23,7 +23,7 @@ export const stats = [
 ] as const;
 ''
 export const places = [
-  { id: "cafe", name: "Nossa cafeteria" },
+  { id: "cafe", name: "Seus Pulinhos quando se empolga" },
   { id: "park", name: "Parque de domingo" },
   { id: "mall", name: "Shopping de risadas" },
   { id: "beach", name: "Praia do pôr do sol" },
@@ -39,8 +39,15 @@ export const vibeTracks = [
 
 export const romanticMessage = {
   lines: [
-    "Entre tantos dias, você virou o meu lugar favorito.",
-    "Não é sobre o que a gente faz, é sobre com quem a gente vive tudo isso.",
+    "E, aos poucos nós viramos uma mesma estrada.",
+    "Um ano juntos,",
+    "aprendendo a ter paciência nos dias difíceis,",
+    "aprendendo a melhor forma de cuidar um do outro,",
+    "e descobrindo o amor nos detalhes mais simples.",
+    "Hoje eu entendo melhor:",
+    "Nosso amor não é só sentimento —",
+    "é um acolhimento, em meio ao mundo.",
+
   ],
   /** Caminho opcional para uma foto de fundo; se vazio, usamos apenas shapes/gradiente. */
   imageUrl: "",

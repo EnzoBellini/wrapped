@@ -57,11 +57,11 @@ function FinalSlideComponent() {
           transition={
             prefersReducedMotion
               ? { duration: 0.2 }
-              : { duration: 0.8, ease: "easeOut" }
+              : { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }
           }
           className="space-y-3 sm:space-y-4"
         >
-          <h1 className="text-4xl font-semibold text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+          <h1 className="min-w-0 break-words text-3xl font-semibold text-white sm:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
             Feliz 1 ano{" "}
             {!prefersReducedMotion && (
               <span className="inline-block animate-pulse">❤️</span>

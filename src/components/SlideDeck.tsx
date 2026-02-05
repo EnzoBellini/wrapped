@@ -108,30 +108,21 @@ function SlideDeckComponent() {
 
   const progress = useMemo(() => (index + 1) / total, [index, total]);
 
+  /* Animações leves (sem blur/scale) para fluidez no celular */
   const variants = useMemo(
     () => ({
       enter: (dir: 1 | -1) =>
         prefersReducedMotion
           ? { opacity: 0 }
-          : {
-              opacity: 0,
-              y: dir === 1 ? 28 : -28,
-              scale: 0.985,
-              filter: "blur(7px)",
-            },
+          : { opacity: 0, y: dir === 1 ? 16 : -16 },
       center: {
         opacity: 1,
-        ...(prefersReducedMotion ? {} : { y: 0, scale: 1, filter: "blur(0px)" }),
+        ...(prefersReducedMotion ? {} : { y: 0 }),
       },
       exit: (dir: 1 | -1) =>
         prefersReducedMotion
           ? { opacity: 0 }
-          : {
-              opacity: 0,
-              y: dir === 1 ? -24 : 24,
-              scale: 0.985,
-              filter: "blur(7px)",
-            },
+          : { opacity: 0, y: dir === 1 ? -16 : 16 },
     }),
     [prefersReducedMotion],
   );
@@ -141,7 +132,7 @@ function SlideDeckComponent() {
   return (
     <SlideNavigationProvider goTo={goTo}>
       <section
-        className="relative h-dvh w-full overflow-hidden"
+        className="relative h-dvh w-full min-w-0 overflow-hidden"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -153,7 +144,7 @@ function SlideDeckComponent() {
           />
         </div>
 
-        <div className="flex h-full items-center justify-center px-4 py-6 sm:px-5 sm:py-8 md:px-10 md:py-10">
+        <div className="flex h-full items-center justify-center overflow-x-hidden px-4 py-6 pr-14 min-w-0 sm:px-5 sm:py-8 sm:pr-16 md:px-10 md:py-10 md:pr-20">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentSlide.id}
@@ -165,9 +156,9 @@ function SlideDeckComponent() {
               transition={
                 prefersReducedMotion
                   ? { duration: 0.2 }
-                  : { type: "spring", stiffness: 240, damping: 28 }
+                  : { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }
               }
-              className="w-full"
+              className="w-full min-w-0 max-w-full"
             >
               <SlideShell
                 kicker={currentSlide.kicker}
@@ -178,34 +169,27 @@ function SlideDeckComponent() {
                 header={
                   currentSlide.id === "intro" ? (
                     <div className="relative overflow-hidden">
-                      {!prefersReducedMotion && (
-                        <motion.div
-                          className="absolute -left-10 -top-10 h-48 w-48 rounded-full bg-white/8 blur-2xl sm:h-64 sm:w-64"
-                          animate={{ x: [0, 20, -10, 0], y: [0, -10, 15, 0], rotate: [0, 10, -5, 0] }}
-                          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                      )}
                       <motion.h1
-                        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
+                        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
                         animate={{ opacity: 1, ...(prefersReducedMotion ? {} : { y: 0 }) }}
                         transition={
                           prefersReducedMotion
                             ? { duration: 0.2 }
-                            : { duration: 0.7, ease: "easeOut" }
+                            : { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }
                         }
-                        className="text-balance text-3xl font-semibold leading-[1.02] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+                        className="min-w-0 break-words text-balance text-2xl font-semibold leading-[1.08] tracking-tight text-white sm:text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
                       >
                         Nossa retrospectiva de 1 ano
                       </motion.h1>
                       <motion.p
-                        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
+                        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
                         animate={{ opacity: 1, ...(prefersReducedMotion ? {} : { y: 0 }) }}
                         transition={
                           prefersReducedMotion
                             ? { duration: 0.2, delay: 0.05 }
-                            : { duration: 0.65, delay: 0.15, ease: "easeOut" }
+                            : { duration: 0.35, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }
                         }
-                        className="mt-3 text-base font-medium text-white/80 sm:mt-4 sm:text-lg md:text-xl"
+                        className="mt-2 min-w-0 break-words text-sm font-medium text-white/80 sm:mt-4 sm:text-base sm:text-lg md:text-xl"
                       >
                         Enzo e Milena
                       </motion.p>
@@ -271,8 +255,8 @@ function SlideDeckComponent() {
           </AnimatePresence>
         </div>
 
-        {/* Indicador inferior (ex: 3/10) */}
-        <div className="pointer-events-none fixed bottom-4 left-0 right-0 z-20 px-4 sm:bottom-5 sm:px-6 md:px-10">
+        {/* Indicador inferior (ex: 3/10) - safe area iPhone */}
+        <div className="pointer-events-none fixed z-20 px-4 sm:px-6 md:px-10" style={{ bottom: 'max(1rem, env(safe-area-inset-bottom, 1rem))', left: 'env(safe-area-inset-left, 0)', right: 'env(safe-area-inset-right, 0)' }}>
           <div className="mx-auto flex w-full max-w-5xl items-center justify-end">
             <span className="rounded-full border border-white/14 bg-white/8 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-white/70 backdrop-blur-md sm:px-3 sm:text-[11px] sm:tracking-[0.22em]">
               {index + 1}/{total}

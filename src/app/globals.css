@@ -22,6 +22,7 @@
 html {
   height: 100%;
   overflow: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -29,6 +30,19 @@ body {
   overflow: hidden;
   background: var(--background);
   color: var(--foreground);
+  /* Safe area para iPhone (notch e home indicator) */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /* Fluidez no toque (iPhone) */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Evitar texto cortando em telas pequenas */
+.wrapped-content {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .wrapped-bg {
@@ -55,6 +69,25 @@ body {
   }
 }
 
+/* Equalizer bars: animação em CSS (leve no mobile) */
+.animate-equalizer-bar {
+  height: 100%;
+  min-height: 4px;
+  transform-origin: bottom;
+  animation: equalizerBar 0.7s ease-in-out infinite;
+  animation-delay: var(--bar-delay, 0s);
+}
+
+@keyframes equalizerBar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -67,5 +100,10 @@ body {
 
   .wrapped-bg {
     animation: none !important;
+  }
+
+  .animate-equalizer-bar {
+    animation: none !important;
+    transform: scaleY(0.7);
   }
 }

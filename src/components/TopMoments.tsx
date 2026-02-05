@@ -10,13 +10,11 @@ export function TopMoments() {
   };
 
   const card: Variants = {
-    hidden: { opacity: 0, y: 18, scale: 0.96, filter: "blur(7px)" },
+    hidden: { opacity: 0, y: 12 },
     show: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      filter: "blur(0px)",
-      transition: { type: "spring", stiffness: 420, damping: 28 },
+      transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] },
     },
   };
 
@@ -34,8 +32,8 @@ export function TopMoments() {
           className="rounded-2xl border border-white/12 bg-white/7 p-4 shadow-[0_16px_60px_-28px_rgba(0,0,0,0.8)] backdrop-blur-md sm:rounded-3xl sm:p-5"
         >
           <div className="text-2xl sm:text-3xl">{m.emoji}</div>
-          <div className="mt-2 text-base font-semibold text-white sm:mt-3 sm:text-lg">{m.title}</div>
-          <div className="mt-1.5 text-xs leading-relaxed text-white/70 sm:mt-2 sm:text-sm">{m.blurb}</div>
+          <div className="mt-2 min-w-0 break-words text-base font-semibold text-white sm:mt-3 sm:text-lg">{m.title}</div>
+          <div className="mt-1.5 min-w-0 break-words text-xs leading-relaxed text-white/70 sm:mt-2 sm:text-sm">{m.blurb}</div>
         </motion.div>
       ))}
     </motion.div>

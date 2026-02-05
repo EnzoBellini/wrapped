@@ -19,8 +19,8 @@ export function RomanticMessage() {
         </div>
       ) : (
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -left-24 -top-32 h-72 w-72 rounded-full bg-fuchsia-400/35 blur-3xl" />
-          <div className="absolute -right-24 -bottom-32 h-80 w-80 rounded-full bg-emerald-300/35 blur-3xl" />
+          <div className="absolute -left-16 -top-20 h-40 w-40 rounded-full bg-fuchsia-400/30 sm:-left-24 sm:-top-32 sm:h-72 sm:w-72 sm:blur-3xl" />
+          <div className="absolute -right-16 -bottom-20 h-44 w-44 rounded-full bg-emerald-300/30 sm:-right-24 sm:-bottom-32 sm:h-80 sm:w-80 sm:blur-3xl" />
           <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/80" />
         </div>
       )}
@@ -39,14 +39,14 @@ export function RomanticMessage() {
           {romanticMessage.lines.map((line, idx) => (
             <motion.p
               key={idx}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.65,
-                delay: 0.08 + idx * 0.08,
-                ease: [0.16, 1, 0.3, 1],
+                duration: 0.4,
+                delay: 0.05 + idx * 0.05,
+                ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="text-balance text-base font-medium leading-relaxed text-white sm:text-lg md:text-xl"
+              className="min-w-0 break-words text-balance text-sm font-medium leading-relaxed text-white sm:text-base sm:text-lg md:text-xl"
             >
               {line}
             </motion.p>

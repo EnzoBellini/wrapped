@@ -28,18 +28,13 @@ const CircularGauge = memo(function CircularGauge({ label, value, unit, index }:
 
   const card: Variants = useMemo(
     () => ({
-      hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.95 },
+      hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 },
       show: {
         opacity: 1,
-        ...(prefersReducedMotion ? {} : { y: 0, scale: 1 }),
+        ...(prefersReducedMotion ? {} : { y: 0 }),
         transition: prefersReducedMotion
           ? { duration: 0.2, delay: index * 0.05 }
-          : {
-              type: "spring",
-              stiffness: 300,
-              damping: 25,
-              delay: index * 0.15,
-            },
+          : { duration: 0.35, delay: index * 0.08, ease: [0.25, 0.1, 0.25, 1] },
       },
     }),
     [index, prefersReducedMotion],
@@ -52,11 +47,7 @@ const CircularGauge = memo(function CircularGauge({ label, value, unit, index }:
         pathLength: percent / 100,
         transition: prefersReducedMotion
           ? { duration: 0.2, delay: index * 0.05 + 0.1 }
-          : {
-              duration: 1.2,
-              delay: index * 0.15 + 0.3,
-              ease: [0.16, 1, 0.3, 1],
-            },
+          : { duration: 0.6, delay: index * 0.08 + 0.15, ease: [0.25, 0.1, 0.25, 1] },
       },
     }),
     [index, percent, prefersReducedMotion],
@@ -122,8 +113,8 @@ const CircularGauge = memo(function CircularGauge({ label, value, unit, index }:
       </div>
       
       {/* Label */}
-      <div className="mt-4 text-center">
-        <div className="text-xs font-semibold tracking-[0.18em] text-white/65 uppercase">
+      <div className="mt-3 text-center min-w-0 sm:mt-4">
+        <div className="break-words text-[10px] font-semibold tracking-[0.14em] text-white/65 uppercase sm:text-xs sm:tracking-[0.18em]">
           {label}
         </div>
       </div>

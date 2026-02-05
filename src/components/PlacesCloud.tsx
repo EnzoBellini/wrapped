@@ -13,13 +13,11 @@ export function PlacesCloud() {
   };
 
   const card: Variants = {
-    hidden: { opacity: 0, y: 16, scale: 0.96, filter: "blur(6px)" },
+    hidden: { opacity: 0, y: 12 },
     show: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      filter: "blur(0px)",
-      transition: { type: "spring", stiffness: 420, damping: 30 },
+      transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] },
     },
   };
 
@@ -37,8 +35,8 @@ export function PlacesCloud() {
             variants={card}
             className="rounded-2xl border border-white/14 bg-white/8 px-4 py-3 shadow-[0_16px_60px_-32px_rgba(0,0,0,0.7)] backdrop-blur-md sm:rounded-3xl sm:px-5 sm:py-4"
           >
-            <div className="text-base font-semibold text-white sm:text-lg">{p.name}</div>
-            <div className="mt-1 text-xs text-white/65 sm:text-sm">Sempre rende boas memórias.</div>
+            <div className="min-w-0 break-words text-base font-semibold text-white sm:text-lg">{p.name}</div>
+            <div className="mt-1 min-w-0 break-words text-xs text-white/65 sm:text-sm">Sempre rende boas memórias.</div>
           </motion.div>
         ))}
       </motion.div>
@@ -48,26 +46,13 @@ export function PlacesCloud() {
           TAG CLOUD
         </div>
         <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
-          {tags.map((p, idx) => (
-            <motion.span
+          {tags.map((p) => (
+            <span
               key={p.id}
-              initial={{ opacity: 0, y: 6, scale: 0.95 }}
-              animate={{
-                opacity: 1,
-                y: [0, -4, 0],
-                x: [0, 3, 0],
-                scale: 1,
-              }}
-              transition={{
-                duration: 4 + idx * 0.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: idx * 0.08,
-              }}
-              className="rounded-full border border-white/18 bg-white/8 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur"
+              className="rounded-full border border-white/18 bg-white/8 px-2.5 py-1 text-[11px] font-medium text-white/80 backdrop-blur sm:px-3 sm:text-xs"
             >
               {p.name}
-            </motion.span>
+            </span>
           ))}
         </div>
       </div>

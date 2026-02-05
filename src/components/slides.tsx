@@ -5,8 +5,8 @@ import { relationshipStart } from "@/data/data";
 import { Timeline } from "@/components/Timeline";
 import { TopMoments } from "@/components/TopMoments";
 import { StatsGrid } from "@/components/StatsGrid";
-import { PlacesCloud } from "@/components/PlacesCloud";
 import { VibePlaylist } from "@/components/VibePlaylist";
+import { YearReview } from "@/components/YearReview";
 import { RomanticMessage } from "@/components/RomanticMessage";
 import { PartnershipStats } from "@/components/PartnershipStats";
 import { ThankYouSlide } from "@/components/ThankYouSlide";
@@ -62,26 +62,17 @@ export const slides: WrappedSlide[] = [
     render: () => <StatsGrid />,
   },
   {
-    id: "places",
-    kicker: "Capítulo 4",
-    title: "Nossos lugares",
-    body: "Quatro cantinhos favoritos e uma nuvem de tags que flutua pelo mapa imaginário.",
-    accent: "lime",
-    badges: ["PLACES"],
-    render: () => <PlacesCloud />,
-  },
-  {
     id: "vibe",
-    kicker: "Capítulo 5",
+    kicker: "Capítulo 4",
     title: "A nossa vibe",
-    body: "Três faixas que poderiam tocar de fundo — com um equalizer só para o visual.",
+    body: "Algumas músicas que podem retratar nosso último ano.",
     accent: "pink",
     badges: ["PLAYLIST"],
     render: () => <VibePlaylist />,
   },
   {
     id: "romantic",
-    kicker: "Capítulo 6",
+    kicker: "Capítulo 5",
     title: "Palavras que ficam",
     body: "Uma mensagem curtinha pra guardar esse ano no coração.",
     accent: "purple",
@@ -90,16 +81,25 @@ export const slides: WrappedSlide[] = [
   },
   {
     id: "partnership",
-    kicker: "Capítulo 7",
+    kicker: "Capítulo 6",
     title: "A gente em números",
-    body: "Comparações tipo Wrapped que mostram o quanto a gente combina.",
+    body: "A estatísticas desse ano.",
     accent: "orange",
     badges: ["NÚMEROS"],
     render: () => <PartnershipStats />,
   },
   {
+    id: "review",
+    kicker: "Capítulo final",
+    title: "Review do ano",
+    body: "De 0 a 100, o quanto você amou esse ano ao de nós?",
+    accent: "pink",
+    badges: ["REVIEW"],
+    render: () => <YearReview />,
+  },
+  {
     id: "thankyou",
-    kicker: "Capítulo 8",
+    kicker: "Fechamento",
     accent: "lime",
     badges: ["FINAL"],
     render: () => <ThankYouSlide />,

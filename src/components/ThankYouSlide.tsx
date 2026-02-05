@@ -23,10 +23,10 @@ function ThankYouSlideComponent() {
         }
         className="space-y-3 sm:space-y-4"
       >
-        <h2 className="text-2xl font-semibold text-white sm:text-3xl md:text-4xl lg:text-5xl">
+        <h2 className="min-w-0 break-words text-xl font-semibold text-white sm:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
           Obrigada(o) por esse ano incrível
         </h2>
-        <p className="text-base text-white/80 sm:text-lg md:text-xl lg:text-2xl">
+        <p className="min-w-0 break-words text-sm text-white/80 sm:text-base sm:text-lg md:text-xl lg:text-2xl">
           Bora viver o próximo capítulo?
         </p>
       </motion.div>
