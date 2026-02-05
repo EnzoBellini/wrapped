@@ -40,9 +40,10 @@ function SlideDeckComponent() {
   const next = useCallback(() => goTo(index + 1), [goTo, index]);
   const prev = useCallback(() => goTo(index - 1), [goTo, index]);
 
-  // Keyboard navigation
+  // Keyboard navigation (desativada no slide do review para não atrapalhar o slider)
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
+      if (slides[index].id === "review") return;
       const key = e.key.toLowerCase();
       if (key === "arrowright" || key === "d") next();
       if (key === "arrowleft" || key === "a") prev();
@@ -51,11 +52,12 @@ function SlideDeckComponent() {
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [goTo, next, prev, total]);
+  }, [goTo, next, prev, total, index]);
 
-  // Mouse wheel with debounce - apenas para navegação entre slides
+  // Mouse wheel with debounce (desativado no slide do review para não atrapalhar o slider)
   useEffect(() => {
     function onWheel(e: WheelEvent) {
+      if (slides[index].id === "review") return;
       e.preventDefault(); // Prevenir scroll padrão
       const now = performance.now();
       if (now - lastScrollTimeRef.current < 500) return;
@@ -74,7 +76,7 @@ function SlideDeckComponent() {
 
     window.addEventListener("wheel", onWheel, { passive: false });
     return () => window.removeEventListener("wheel", onWheel);
-  }, [next, prev]);
+  }, [next, prev, index]);
 
   // Touch swipe
   function handleTouchStart(e: React.TouchEvent<HTMLElement>) {
@@ -93,6 +95,11 @@ function SlideDeckComponent() {
   }
 
   function handleTouchEnd() {
+    if (slides[index].id === "review") {
+      touchStartRef.current = null;
+      touchDeltaRef.current = { x: 0, y: 0 };
+      return;
+    }
     const { x, y } = touchDeltaRef.current;
     const absX = Math.abs(x);
     const absY = Math.abs(y);
